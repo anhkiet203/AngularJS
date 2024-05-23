@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="form">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+    <link rel="stylesheet" href="Bootstrap 3/css/bootstrap.min.css">
+    <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALT04VidD/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALT0/wC09P9YnQ//WJ0P/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtPT/ALT0/wC09P8AVXkJAAAAAFidD/9YnQ//WJ0P/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC09P8AtPT/ALT0/wC09P8AAAAAN0Tb/zdE2/8AAAAAWJ0P/1idD/9YnQ//WJ0P/wAAAAAAAAAAAAAAAAAAAAAAtPT/ALT0/wAAAAA3RNv/N0Tb/zdE2/83RNv/N0Tb/zdE2/8AAAAAWJ0P/1idD/8AAAAAAAAAAAAAAAAAAAAAALT0/wAAAAA3RNv//////zdE2/83RNv/N0Tb/zdE2///////N0Tb/wAAAABYnQ//AAAAAAAAAAAAAAAAALT0/wC09P8AAAAAN0Tb//////83RNv/N0Tb/zdE2/83RNv//////zdE2/8AAAAAWJ0P/1idD/8AAAAAAAAAAAC09P8AtPT/AAAAADdE2/83RNv//////////////////////zdE2/83RNv/AAAAAFidD/9YnQ//AAAAAAAAAAAAtPT/ALT0/zdE2/83RNv/N0Tb//////83RNv/N0Tb//////83RNv/N0Tb/zdE2/9YnQ//WJ0P/wAAAAAAAAAAALT0/wC09P83RNv/N0Tb/zdE2/83RNv///////////83RNv/N0Tb/zdE2/83RNv/WJ0P/1idD/8AAAAAAAAAAAC09P8AtPT/N0Tb/zdE2/83RNv/N0Tb////////////N0Tb/zdE2/83RNv/N0Tb/1idD/9YnQ//AAAAAAAAAAAAtPT/AAAAADdE2603RNv/N0Tb/zdE2/84Rdv//////zdE2/83RNv/N0Tb/zdE2/4AAAAAWJ0P/wAAAAAAAAAAAAAAAPSFQv/0hUL/9IVC/wAAAAA3RNv/N0Tb/zdE2/83RNv/AAAAAPSFQv/0hUL/9IVC/wAAAAAAAAAAAAAAAAAAAAD0hUL/9IVC//SFQv/0hUL/9IVC//SFQv/0hUL/9IVC//SFQv/0hUL/9IVC//SFQv8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA9IVC//SFQv/0hUL/9IVC//SFQv/0hUL/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/n8AAPw/AADxjwAAwkMAAMgTAADQCwAAkAkAAJAJAACAAQAAgAEAAIABAACgBQAAxCMAAMADAAD4HwAA//8AAA==" rel="icon" type="image/x-icon">
+</head>
+
+<body ng-controller="formValidation">
+
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-lg-12">
+                <div class="panel panel-info" style="margin-top: 20px ;">
+                    <div class="panel-heading">
+                        <h4>TÍNH TIỀN THƯỞNG TẾT NGUYÊN ĐÁN</h4>
+                    </div>
+                    <div class="panel-body">
+                        <form name="frmBonus">
+                            <div class="form-group mb-3">
+                                <label for="">Họ và tên: </label>
+                                <input type="text" class="form-control" ng-model="name" name="txtFullName" required>
+                                <span ng-show="frmBonus.txtFullName.$invalid">
+                                    <p class="text-danger">Vui lòng nhập họ và tên</p>
+                                </span>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="">Lương: </label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" ng-model="salary" min="2000000"
+                                        name="txtSalary">
+                                    <div class="input-group-addon">VND</div>
+                                </div>
+                                <span ng-show="frmBonus.txtSalary.$invalid" class="text-danger">
+                                    Lương ít nhất 2 triệu</span>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="">Giới tính: </label>
+                                <label for="female" type="">
+                                    <input ng-change="getBonus()" type="radio" name="" id="female" value="0"
+                                        ng-model="gender"> Nữ</label>
+                                <label for="male" type="">
+                                    <input ng-change="getBonus()" type="radio" id="male" value="1" ng-model="gender">
+                                    Nam</label>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="">Độ tuổi: </label>
+                                <select ng-change="getBonus()" ng-model="age" ng-options="age.label for age in ages"
+                                    class="form-control">
+                                </select>
+                            </div>
+                            <h4 ng-show="frmBonus.$valid" class="text-success">Bạn nhập thành công</h4>
+                        </form>
+                    </div>
+                    <div class="panel-footer" style="font-weight:bold ;">
+                        Tổng tiền thưởng của
+                        <span ng-show="gender==1">ANH</span>
+                        <span ng-show="gender==0">CHỊ</span>
+                        <strong> {{ name }}</strong> :
+                        <em class="text-danger">{{ getBonus() | number:2 }}</em>
+                    </div>
+                </div>
+            </div>
+            <!--  -->
+            <div><br></div>
+            <div class="col-lg-12">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h4>BÁN ĐÁ BÀO</h4>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>TÊN HÀNG</th>
+                                    <th>SỐ LƯỢNG</th>
+                                    <th>ĐƠN GIÁ</th>
+                                    <th>THÀNH TIỀN</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in items" ng-init="item.quantity = 1">
+                                    <td>
+                                        <input type="checkbox" name="" id="" ng-model="item.buy">
+                                    </td>
+                                    <td ng-bind="item.name"></td>
+                                    <td>
+                                        <input type="number" name="" id="" class="form-control" ng-model="item.quantity"
+                                            ng-disabled="!item.buy">
+                                    </td>
+                                    <td ng-bind="item.price | currency"></td>
+                                    <td ng-bind="item.price*item.quantity | currency"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-footer" style="font-weight:bold ;">
+                        Tổng tiền đá bào:
+                        <em class="text-danger">{{ getAmount() | currency }}</em>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <script src="Bootstrap 3/js/jquery-3.6.4.min.js"></script>
+    <script src="Bootstrap 3/js/bootstrap.min.js"></script>
+    <script src="Bootstrap 3/js/angular.min.js"></script>
+    <script src="AngularJS.js"></script>
+</body>
+
+</html>
